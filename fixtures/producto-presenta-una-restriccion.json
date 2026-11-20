@@ -1,0 +1,20 @@
+{
+  "status": 200,
+  "body": {
+    "identifiers": {
+      "user_product_id": "MLBU123342568",
+      "inventory_id": null,
+      "seller_sku": "gfhrts-dagtddhg"
+    },
+    "product": {
+      "tags": [
+        "is_restricted"
+      ],
+      "packages_master_case": []
+    },
+    "stock": null,
+    "sales": null,
+    "recommendation": null,
+    "eligibility_benefits": null
+  }
+}

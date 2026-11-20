@@ -1,0 +1,51 @@
+{
+  "status": 206,
+  "body": {
+    "identifiers": {
+      "user_product_id": "MLBU763575079",
+      "inventory_id": "FFOC95076",
+      "seller_sku": "ND-ZIG-1PT"
+    },
+    "product": {
+      "tags": [
+        "star_product",
+        "is_fulfillment"
+      ],
+      "packages_master_case": []
+    },
+    "stock": {
+      "total_stock": 0,
+      "shipping_urgency": null,
+      "minimum_distributable_stock": null
+    },
+    "sales": {
+      "sales_totals": {
+        "period": "30DAYS",
+        "gmv": [
+          {
+            "full": 14990.54
+          }
+        ],
+        "currency": "BRL",
+        "units_sold": [
+          {
+            "full": 214
+          }
+        ]
+      },
+      "sales_history": null
+    },
+    "recommendation": {
+      "recommendation_type": "REPLENISH",
+      "suggested_quantity": {
+        "type": "exact",
+        "value": 210
+      },
+      "replenishment_deadline": null,
+      "replenishment_frequency": null
+    },
+    "eligibility_benefits": [
+      "AGING"
+    ]
+  }
+}

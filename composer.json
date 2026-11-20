@@ -1,0 +1,36 @@
+{
+  "name": "contabilium/reposicion-full-ml",
+  "description": "Productor y consumidor Redis para recomendaciones de reposición Mercado Libre Full",
+  "type": "library",
+  "license": "proprietary",
+  "require": {
+    "php": "^8.2",
+    "psr/log": "^3",
+    "ext-redis": "*"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11"
+  },
+  "autoload": {
+    "psr-4": {
+      "Contabilium\\ReposicionFull\\": "src/"
+    },
+    "exclude-from-classmap": [
+      "src/Infrastructure/Sql/*.example.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Contabilium\\ReposicionFull\\Tests\\": "tests/"
+    }
+  },
+  "bin": [
+    "bin/producer.php",
+    "bin/consumer.php"
+  ],
+  "scripts": {
+    "test": "phpunit",
+    "producer": "php bin/producer.php",
+    "consumer": "php bin/consumer.php"
+  }
+}
