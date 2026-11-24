@@ -19,7 +19,7 @@ final class MockMercadoLibreClientTest extends TestCase
             'body' => [
                 'stock' => ['total_stock' => 4, 'shipping_urgency' => 'THIS_WEEK'],
                 'recommendation' => [
-                    'suggested_quantity' => ['value' => 12],
+                    'suggested_quantity' => ['type' => 'exact', 'value' => 12],
                     'replenishment_deadline' => 'THIS_WEEK',
                 ],
             ],
@@ -40,7 +40,7 @@ final class MockMercadoLibreClientTest extends TestCase
             'status' => 206,
             'body' => [
                 'stock' => ['total_stock' => 0],
-                'recommendation' => ['suggested_quantity' => ['value' => 8]],
+                'recommendation' => ['suggested_quantity' => ['type' => 'exact', 'value' => 8]],
             ],
         ]), new ArrayLogger());
 
