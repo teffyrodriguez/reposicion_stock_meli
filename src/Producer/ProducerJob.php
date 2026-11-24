@@ -34,7 +34,6 @@ final class ProducerJob
     {
         $windowStart = $this->weeklyWindow->start($this->clock->now());
         $cursor = $this->checkpoint->get();
-        var_dump($windowStart, $cursor);
         $fetched = 0;
         $enqueued = 0;
         $dedupSkipped = 0;
@@ -48,31 +47,22 @@ final class ProducerJob
         ]);
 
         while ($batches < $this->config->maxBatchesPerRun) {
-            var_dump("contador: ".$batches);
             if ($this->queue->depth() >= $this->config->maxQueuePending) {
                 $pausedByBackpressure = true;
                 $this->logger->warning('reposicion.producer.backpressure', [
                     'queueDepth' => $this->queue->depth(),
                     'max' => $this->config->maxQueuePending,
                 ]);
-                var_dump("paso 1 - break");
                 break;
             }
-            var_dump("busca en BD");
-            var_dump($windowStart,
-                $this->config->batchSize,
-                $cursor);
             $rows = $this->eligibleRepository->fetchPendingBatch(
                 $windowStart,
                 $this->config->batchSize,
                 $cursor,
             );
-            var_dump($rows);
-
             if ($rows === []) {
                 $completedUniverse = true;
                 $this->checkpoint->clear();
-                var_dump("paso 2 - break");
                 break;
             }
 
@@ -97,13 +87,11 @@ final class ProducerJob
                 }
 
                 $last = $product;
-                var_dump("paso 3 - encolar");
             }
 
             if ($last instanceof EligibleProduct) {
                 $this->checkpoint->save($last);
                 $cursor = $last;
-                var_dump("paso 4 - elegible product");
             }
         }
 
@@ -115,7 +103,6 @@ final class ProducerJob
             pausedByBackpressure: $pausedByBackpressure,
             completedUniverse: $completedUniverse,
         );
-        var_dump("paso 5 - result");
 
         $this->logger->info('reposicion.producer.done', [
             'fetched' => $result->fetched,
