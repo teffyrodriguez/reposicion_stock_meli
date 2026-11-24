@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Contabilium\ReposicionFull\Tests\Infrastructure\MercadoLibre;
 
+use Closure;
 use Contabilium\ReposicionFull\Infrastructure\MercadoLibre\HttpMercadoLibreClient;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -45,10 +46,26 @@ final class HttpMercadoLibreClientUrlTest extends TestCase
     {
         $class = new ReflectionClass(HttpMercadoLibreClient::class);
         $client = $class->newInstanceWithoutConstructor();
-        $class->getProperty('baseUrl')->setValue($client, 'https://api.mercadolibre.com');
-        $class->getProperty('pathTemplate')->setValue($client, $path);
-        $class->getProperty('country')->setValue($client, $country);
 
-        return $class->getMethod('url')->invoke($client, 1, 10, $userProductId);
+        $assign = Closure::bind(
+            function (string $baseUrl, string $pathTemplate, string $country): void {
+                $this->baseUrl = $baseUrl;
+                $this->pathTemplate = $pathTemplate;
+                $this->country = $country;
+            },
+            $client,
+            HttpMercadoLibreClient::class,
+        );
+        $assign('https://api.mercadolibre.com', $path, $country);
+
+        $build = Closure::bind(
+            function (int $idUsuario, int $idIntegracion, string $meLiUserProductId): string {
+                return $this->url($idUsuario, $idIntegracion, $meLiUserProductId);
+            },
+            $client,
+            HttpMercadoLibreClient::class,
+        );
+
+        return $build(1, 10, $userProductId);
     }
 }
