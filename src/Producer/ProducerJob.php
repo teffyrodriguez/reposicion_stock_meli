@@ -79,6 +79,7 @@ final class ProducerJob
                     source: $this->config->source,
                     now: $this->clock->now(),
                 );
+                $this->logger->info('job: ', (array)$job);
 
                 if ($this->queue->enqueue($job)) {
                     $enqueued++;

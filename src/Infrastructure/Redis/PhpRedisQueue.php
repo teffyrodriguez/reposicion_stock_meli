@@ -29,10 +29,13 @@ final class PhpRedisQueue implements QueueInterface
         );
 
         if (!$created) {
+            var_dump('dedup no created');
             return false;
         }
+        var_dump('dedup created');
 
         $this->redis->lPush(RedisKeys::QUEUE, $job->toJson());
+        var_dump('queue created');
 
         return true;
     }

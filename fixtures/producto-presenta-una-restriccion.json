@@ -2,9 +2,9 @@
   "status": 200,
   "body": {
     "identifiers": {
-      "user_product_id": "MLBU123342568",
-      "inventory_id": null,
-      "seller_sku": "gfhrts-dagtddhg"
+      "user_product_id": "MLMU5922448425",
+      "inventory_id": "KAQD70355",
+      "seller_sku": null
     },
     "product": {
       "tags": [

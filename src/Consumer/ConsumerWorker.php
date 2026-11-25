@@ -40,12 +40,12 @@ final class ConsumerWorker
     {
         $outcomes = [];
         $processed = 0;
-
+        $this->logger->info('maximo de mensajes por corrida: ', [$this->config->maxMessagesPerRun]);
         for ($i = 0; $i < $this->config->maxMessagesPerRun; $i++) {
             $job = $this->queue->claim(
                 $this->clock->now()->getTimestamp() + $this->config->visibilityTimeoutSeconds
             );
-            var_dump("job",$job);
+            $this->logger->info("procesar: ", (array)$job);
             if ($job === null) {
                 break;
             }
@@ -103,6 +103,7 @@ final class ConsumerWorker
                     $job->idIntegracion,
                     $job->meLiUserProductId,
                 );
+                $this->logger->warning('recommendation', [$recommendation]);
             } catch (NotFoundRecommendationException $e) {
                 $estado = $e->estadoConsulta ?? match ($e->httpStatus) {
                     404 => 'not_found',
@@ -117,6 +118,7 @@ final class ConsumerWorker
                         $estado,
                         $this->clock->now(),
                         $windowStart,
+                        actualizarFechaSemanal: $e->httpStatus !== 403,
                     );
                 } else {
                     $this->recommendations->upsert(

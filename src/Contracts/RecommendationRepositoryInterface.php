@@ -18,8 +18,9 @@ interface RecommendationRepositoryInterface
     public function isUsuarioIntegracionActiva(int $idUsuario, int $idIntegracion): bool;
 
     /**
-     * Actualiza solo FechaSemanal, FechaActualizacion y EstadoConsulta.
-     * Si la fila no existe, la inserta con el resto de columnas en NULL.
+     * Actualiza FechaActualizacion y EstadoConsulta.
+     * FechaSemanal se actualiza salvo que $actualizarFechaSemanal sea false.
+     * Si la fila no existe, la inserta con FechaSemanal y el resto de columnas en NULL.
      */
     public function markEstadoConsulta(
         int $idUsuario,
@@ -28,6 +29,7 @@ interface RecommendationRepositoryInterface
         string $estadoConsulta,
         \DateTimeImmutable $updatedAt,
         \DateTimeImmutable $semanaRecomendacion,
+        bool $actualizarFechaSemanal = true,
     ): void;
 
     public function upsert(

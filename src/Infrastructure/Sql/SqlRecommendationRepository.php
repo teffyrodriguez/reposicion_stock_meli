@@ -79,8 +79,10 @@ final class SqlRecommendationRepository implements RecommendationRepositoryInter
         string $estadoConsulta,
         \DateTimeImmutable $updatedAt,
         \DateTimeImmutable $semanaRecomendacion,
+        bool $actualizarFechaSemanal = true,
     ): void {
-        $sql = <<<'SQL'
+        $updateFechaSemanal = $actualizarFechaSemanal ? "FechaSemanal = :fechaSemanal,\n    " : '';
+        $sql = <<<SQL
 SET NOCOUNT ON;
 MERGE RecomendacionReposicion AS t
 USING (
@@ -92,8 +94,7 @@ ON t.IDUsuario = s.IDUsuario
 AND t.IDIntegracion = s.IDIntegracion
 AND t.MeLiUserProductId = s.MeLiUserProductId
 WHEN MATCHED THEN UPDATE SET
-    FechaSemanal = :fechaSemanal,
-    FechaActualizacion = :fechaActualizacion,
+    {$updateFechaSemanal}FechaActualizacion = :fechaActualizacion,
     EstadoConsulta = :estadoConsulta
 WHEN NOT MATCHED THEN INSERT (
     MeLiUserProductId, IDIntegracion, IDUsuario,
@@ -112,7 +113,9 @@ SQL;
         $this->bind($stmt, 'idUsuario', $idUsuario, PDO::PARAM_INT);
         $this->bind($stmt, 'idIntegracion', $idIntegracion, PDO::PARAM_INT);
         $this->bind($stmt, 'meLiUserProductId', $meLiUserProductId, PDO::PARAM_STR);
-        $this->bind($stmt, 'fechaSemanal', $fechaSemanal, PDO::PARAM_STR);
+        if ($actualizarFechaSemanal) {
+            $this->bind($stmt, 'fechaSemanal', $fechaSemanal, PDO::PARAM_STR);
+        }
         $this->bind($stmt, 'fechaActualizacion', $fechaActualizacion, PDO::PARAM_STR);
         $this->bind($stmt, 'estadoConsulta', $estado, PDO::PARAM_STR);
         $this->bind($stmt, 'meLiUserProductIdIns', $meLiUserProductId, PDO::PARAM_STR);
