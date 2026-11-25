@@ -47,6 +47,7 @@ final class FakeRecommendationRepository implements RecommendationRepositoryInte
         string $estadoConsulta,
         \DateTimeImmutable $updatedAt,
         \DateTimeImmutable $semanaRecomendacion,
+        bool $actualizarFechaSemanal = true,
     ): void {
         $this->freshUntil[$this->key($idUsuario, $idIntegracion, $meLiUserProductId)] = $updatedAt;
         $this->notFound[] = [
@@ -56,6 +57,7 @@ final class FakeRecommendationRepository implements RecommendationRepositoryInte
             'estadoConsulta' => $estadoConsulta,
             'updatedAt' => $updatedAt,
             'semanaRecomendacion' => $semanaRecomendacion,
+            'actualizarFechaSemanal' => $actualizarFechaSemanal,
         ];
     }
 

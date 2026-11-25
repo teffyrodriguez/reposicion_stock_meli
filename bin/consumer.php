@@ -47,7 +47,6 @@ try {
         $processed = 0;
         try {
             $stale = $worker->recoverStale();
-            var_dump($stale);
             $result = $worker->run();
             $processed = $result->processed;
             $parts = ["processed={$processed}", "staleRecovered={$stale}"];

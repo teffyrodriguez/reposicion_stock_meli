@@ -2,9 +2,9 @@
   "status": 200,
   "body": {
     "identifiers": {
-      "user_product_id": "MLAU2954839225",
-      "inventory_id": "FCAD123456",
-      "seller_sku": "gfhrts-dagtddhg"
+      "user_product_id": "MLMU5897563617",
+      "inventory_id": "ILZQ70317",
+      "seller_sku": "SONAJERO02"
     },
     "product": {
       "tags": [
@@ -15,8 +15,8 @@
       "packages_master_case": []
     },
     "stock": {
-      "total_stock": 0,
-      "shipping_urgency": "THIS_WEEK",
+      "total_stock": 10,
+      "shipping_urgency": "NO_URGENCY",
       "minimum_distributable_stock": 95
     },
     "sales": {

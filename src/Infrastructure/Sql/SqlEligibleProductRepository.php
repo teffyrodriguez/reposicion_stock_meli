@@ -91,8 +91,6 @@ SQL;
 
         $out = [];
         $data = $stmt->fetchAll();
-        var_dump("entrando al foreach");
-        var_dump($data);
         foreach ($data as $row) {
             if (!is_array($row)) {
                 continue;

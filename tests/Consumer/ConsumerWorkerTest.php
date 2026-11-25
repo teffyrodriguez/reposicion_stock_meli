@@ -108,6 +108,7 @@ final class ConsumerWorkerTest extends TestCase
         self::assertCount(0, $this->repo->upserts);
         self::assertCount(1, $this->repo->notFound);
         self::assertSame('not_found', $this->repo->notFound[0]['estadoConsulta']);
+        self::assertTrue($this->repo->notFound[0]['actualizarFechaSemanal']);
         self::assertSame(0, $this->queue->dlqDepth());
     }
 
@@ -121,6 +122,7 @@ final class ConsumerWorkerTest extends TestCase
         self::assertSame(1, $result->outcomes[ProcessingOutcome::UpsertEmpty->value] ?? 0);
         self::assertCount(0, $this->repo->upserts);
         self::assertSame('access_denied', $this->repo->notFound[0]['estadoConsulta']);
+        self::assertFalse($this->repo->notFound[0]['actualizarFechaSemanal']);
         self::assertSame(0, $this->queue->dlqDepth());
     }
 
@@ -134,6 +136,7 @@ final class ConsumerWorkerTest extends TestCase
         self::assertSame(1, $result->outcomes[ProcessingOutcome::UpsertEmpty->value] ?? 0);
         self::assertCount(0, $this->repo->upserts);
         self::assertSame('invalid_request', $this->repo->notFound[0]['estadoConsulta']);
+        self::assertTrue($this->repo->notFound[0]['actualizarFechaSemanal']);
         self::assertSame(0, $this->queue->dlqDepth());
     }
 
