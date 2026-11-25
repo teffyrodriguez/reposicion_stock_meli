@@ -31,16 +31,6 @@ Tests: `composer test`.
 | `RateLimit\*` / `Infrastructure\Redis\PhpRedisTokenBucket` | Token bucket (RPM configurable; ref. ML ~100 RPM) |
 | `Queue\InMemoryQueue` / `Infrastructure\Redis\PhpRedisQueue` | Cola, processing, dedup, DLQ |
 
-## Documentación
-
-| Doc | Contenido |
-|-----|-----------|
-| [`docs/DESARROLLO-PRODUCTOR-CONSUMIDOR.md`](docs/DESARROLLO-PRODUCTOR-CONSUMIDOR.md) | Cómo funciona el código, rate limit, reintentos, integración |
-| [`docs/FLUJO-PRODUCTOR-CONSUMIDOR-REDIS.md`](docs/FLUJO-PRODUCTOR-CONSUMIDOR-REDIS.md) | Flujo + query SQL + errores |
-| [`docs/TAREAS-PRODUCTOR-CONSUMIDOR-REDIS.md`](docs/TAREAS-PRODUCTOR-CONSUMIDOR-REDIS.md) | División en tareas |
-| [`docs/ANALISIS-ALTERNATIVAS-REPOSICION-ML-FULL.md`](docs/ANALISIS-ALTERNATIVAS-REPOSICION-ML-FULL.md) | Análisis de alternativas |
-| [`docs/DISENO-DETALLADO-ALTERNATIVA-2.md`](docs/DISENO-DETALLADO-ALTERNATIVA-2.md) | Diseño Redis detallado |
-
 ## Rate limit
 
 El límite de ML aplica principalmente por **Client ID**. Este proceso usa un **token bucket** compartido (default ejemplo **25 RPM** reservados). Ante **HTTP 429** se penaliza el bucket y el mensaje reintenta con backoff. Ajustá `maxTokens` / `refillPerSecond` a la cuota real del endpoint de planes.

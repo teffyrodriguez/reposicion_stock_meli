@@ -28,5 +28,3 @@ Ilustra el uso de:
 6. `recoverStaleProcessing()` reencola lo que venció en `processing` (worker caído).
 
 `meliClient` y `repository` son stubs a reemplazar por tus servicios Contabilium.
-
-Diseño conceptual: [`docs/DISENO-DETALLADO-ALTERNATIVA-2.md`](../../docs/DISENO-DETALLADO-ALTERNATIVA-2.md)
